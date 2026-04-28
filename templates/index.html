@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered medical triage system that predicts the appropriate medical specialty from patient symptom descriptions using LSTM and BioBERT models.">
+    <title>AI Medical Triage System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-gradients">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <div class="icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                </div>
+                <h1>AI Triage <span>Pro</span></h1>
+            </div>
+            <p class="subtitle">Intelligent Patient Routing Engine</p>
+        </header>
+
+        <main>
+            <div class="glass-panel input-section">
+                <h2>Patient Symptoms</h2>
+                <p class="description">Enter the patient's symptomatic description as natural language text.</p>
+                
+                <textarea id="symptoms-input" placeholder="e.g., Patient is experiencing severe chest pain radiating to the left arm, accompanied by shortness of breath and diaphoresis..." rows="5"></textarea>
+                
+                <div class="controls">
+                    <div class="model-selector" style="display: none;">
+                        <input type="hidden" id="model-select" value="biobert">
+                    </div>
+                    
+                    <button id="analyze-btn" class="primary-btn">
+                        <span class="btn-text">Analyze & Triage</span>
+                        <div class="spinner"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-section" id="results-section">
+                <div class="glass-panel result-card">
+                    <div class="result-header">
+                        <h2>Recommended Specialty</h2>
+                        <span class="badge time-badge" id="response-time">-- ms</span>
+                    </div>
+                    
+                    <div class="primary-prediction">
+                        <div class="specialty-icon" id="specialty-icon">
+                            <!-- SVG injected via JS -->
+                        </div>
+                        <div class="prediction-details">
+                            <h3 id="predicted-specialty">Awaiting Input</h3>
+                            <div class="confidence-bar-container">
+                                <div class="confidence-fill" id="confidence-fill"></div>
+                                <span class="confidence-text" id="confidence-text">--% Confidence</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="urgent-alert" class="urgent-alert hidden">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        <span>HIGH PRIORITY FLAG</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel stats-card">
+                    <h3>Analysis Breakdown</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Model Engine</span>
+                            <span class="stat-value" id="stat-model">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Key Factors</span>
+                            <div class="keywords-container" id="keywords-container">
+                                <!-- Keywords injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
